@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.ArrayMap;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         addHomeItems();
         initView();
+
+        test();
     }
 
     private void addHomeItems() {
@@ -35,5 +38,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         HomeAdapter adapter = new HomeAdapter(this, list);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void test() {
+        ArrayMap map;
     }
 }
