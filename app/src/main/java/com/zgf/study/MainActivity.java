@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private void addHomeItems() {
         list = new ArrayList<>();
         list.add(new HomeModel("自定义View之下载进度条", "zgf://downloadprogress"));
+        list.add(new HomeModel("监听屏幕高度变化", "zgf://screenchangelistener"));
     }
 
     private void initView() {
@@ -41,6 +42,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
+        /**
+         * Set
+         * HashSet
+         * TreeSet
+         *
+         * List
+         * ArrayList
+         * LinkedList
+         *
+         * Vector/Stack
+         * Queue
+         *
+         * HashMap
+         * HashTable
+         * TreeMap
+         * LinkedHashMap
+         * SparseArray
+         * ArrayMap
+         */
+
         ArrayMap map;
+        StringBuffer buffer;
+        StringBuilder builder;
     }
 }
