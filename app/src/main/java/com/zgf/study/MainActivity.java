@@ -6,12 +6,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.SparseArray;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,5 +74,20 @@ public class MainActivity extends AppCompatActivity {
         ArrayMap map;
         StringBuffer buffer;
         StringBuilder builder;
+
+        ArrayList arrayList;
+        LinkedList linkedList;
+
+        HashSet hashSet;
+        TreeSet treeSet;
+
+        HashMap hashMap;
+        Hashtable hashtable;
+        TreeMap treeMap;
+
+        ArrayMap arrayMap;
+        SparseArray sparseArray;
+
+        LinkedHashMap linkedHashMap;
     }
 }

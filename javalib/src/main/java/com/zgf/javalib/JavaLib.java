@@ -5,7 +5,12 @@ import com.zgf.javalib.algorithm.MyQueue;
 import com.zgf.javalib.algorithm.MyStack;
 import com.zgf.javalib.algorithm.NodeAlgorithm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.TreeMap;
+
 
 public class JavaLib {
 
@@ -17,10 +22,11 @@ public class JavaLib {
 
 //        nodeTest();
 
-        stackTest();
+//        stackTest();
 
-        queueTest();
+//        queueTest();
 
+        test();
     }
 
     private static void arrayTest() {
@@ -80,5 +86,39 @@ public class JavaLib {
         System.out.println("dequeue: " + dequeue);
 
         queue.print();
+    }
+    
+    private static void test() {
+        /**
+         * Set
+         * HashSet
+         * TreeSet
+         *
+         * List
+         * ArrayList
+         * LinkedList
+         *
+         * Vector/Stack
+         * Queue
+         *
+         * HashMap
+         * HashTable
+         * TreeMap
+         * LinkedHashMap
+         * SparseArray
+         * ArrayMap
+         */
+        ArrayList arrayList;
+        LinkedList linkedList;
+
+        HashMap hashMap;
+        TreeMap treeMap = new TreeMap();
+        Object o = new Object();
+        treeMap.put("1", "");
+        treeMap.put("null", "2");
+        String string;
+
+        Hashtable hashtable = new Hashtable();
+        hashtable.put("null", "null");
     }
 }
