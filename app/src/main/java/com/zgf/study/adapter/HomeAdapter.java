@@ -1,6 +1,7 @@
 package com.zgf.study.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zgf.androidlib.Utils;
 import com.zgf.study.R;
 import com.zgf.study.model.HomeModel;
+import com.zgf.study.ui.WebViewActivity;
 
 import java.util.List;
 
@@ -38,7 +40,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.skipPageWithScheme(context, homeModel.getScheme());
+                String scheme = homeModel.getScheme();
+                if (!TextUtils.isEmpty(scheme)) {
+                    if (scheme.startsWith("http")) {
+                        WebViewActivity.start(context, scheme);
+                    } else {
+                        Utils.skipPageWithScheme(context, homeModel.getScheme());
+                    }
+                }
             }
         });
     }

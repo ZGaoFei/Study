@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addHomeItems() {
         list = new ArrayList<>();
+        list.add(new HomeModel("查看Android-Review文档", "https://github.com/ZGaoFei/Android-Review"));
         list.add(new HomeModel("自定义View之下载进度条", "zgf://downloadprogress"));
         list.add(new HomeModel("监听屏幕高度变化", "zgf://screenchangelistener"));
     }
@@ -89,5 +91,9 @@ public class MainActivity extends AppCompatActivity {
         SparseArray sparseArray;
 
         LinkedHashMap linkedHashMap;
+        ConcurrentHashMap concurrentHashMap;
+
+        Thread thread = new Thread();
+        thread.wait(100);
     }
 }
