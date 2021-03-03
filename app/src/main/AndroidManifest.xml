@@ -44,9 +44,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activitylifetest.OneActivity" >
+            <intent-filter>
+                <data
+                    android:host="oneactivity"
+                    android:scheme="zgf" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activitylifetest.TwoActivity"/>
     </application>
 
 </manifest>

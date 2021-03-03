@@ -120,5 +120,7 @@ public class JavaLib {
 
         Hashtable hashtable = new Hashtable();
         hashtable.put("null", "null");
+
+        ThreadLocal threadLocal;
     }
 }

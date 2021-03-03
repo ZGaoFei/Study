@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("查看Android-Review文档", "https://github.com/ZGaoFei/Android-Review"));
         list.add(new HomeModel("自定义View之下载进度条", "zgf://downloadprogress"));
         list.add(new HomeModel("监听屏幕高度变化", "zgf://screenchangelistener"));
+        list.add(new HomeModel("测试activity的生命周期调用", "zgf://oneactivity"));
     }
 
     private void initView() {
@@ -93,7 +94,5 @@ public class MainActivity extends AppCompatActivity {
         LinkedHashMap linkedHashMap;
         ConcurrentHashMap concurrentHashMap;
 
-        Thread thread = new Thread();
-        thread.wait(100);
     }
 }
