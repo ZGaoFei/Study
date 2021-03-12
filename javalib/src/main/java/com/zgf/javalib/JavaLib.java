@@ -26,7 +26,15 @@ public class JavaLib {
 
 //        queueTest();
 
-        test();
+//        test();
+
+//        stringTest();
+
+        String string = appendString("hell", "o", " ", "w", "or", "ld", " ", 2021, "!");
+        System.out.println("==00==" + string);
+
+        String string1 = appendString(false, "world!", "hello", " ");
+        System.out.println("==11===" + string1);
     }
 
     private static void arrayTest() {
@@ -122,5 +130,37 @@ public class JavaLib {
         hashtable.put("null", "null");
 
         ThreadLocal threadLocal;
+    }
+
+    private static void stringTest() {
+        String a = "hello world!";
+        String b = "hello world!";
+        System.out.println(a == b);
+        System.out.println(a.equals(b));
+
+        Object oa = new Object();
+        Object ob = new Object();
+        System.out.println(oa == oa);
+        System.out.println(oa.equals(oa));
+    }
+
+    // 默认字符串的后面拼接
+    private static String appendString(String defaultStr, Object... objects) {
+        return appendString(true, defaultStr, objects);
+    }
+
+    // 在默认字符串的前面或者后面进行拼接
+    private static String appendString(boolean isFront, String defaultStr, Object... objects) {
+        StringBuilder builder = new StringBuilder();
+        if (isFront) {
+            builder.append(defaultStr);
+        }
+        for (Object o: objects) {
+            builder.append(o);
+        }
+        if (!isFront) {
+            builder.append(defaultStr);
+        }
+        return builder.toString();
     }
 }

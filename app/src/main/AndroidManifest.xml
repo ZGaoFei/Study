@@ -47,7 +47,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activitylifetest.OneActivity" >
+        <activity
+            android:name=".ui.activitylifetest.OneActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <data
                     android:host="oneactivity"
@@ -58,7 +60,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activitylifetest.TwoActivity"/>
+        <activity
+            android:name=".ui.activitylifetest.TwoActivity"
+            android:launchMode="standard"/>
     </application>
 
 </manifest>

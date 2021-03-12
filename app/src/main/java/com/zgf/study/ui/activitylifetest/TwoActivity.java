@@ -25,7 +25,8 @@ public class TwoActivity extends AppCompatActivity {
         findViewById(R.id.bt_two).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                OneActivity.start(TwoActivity.this);
             }
         });
 

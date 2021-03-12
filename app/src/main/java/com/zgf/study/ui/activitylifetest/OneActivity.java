@@ -2,6 +2,8 @@ package com.zgf.study.ui.activitylifetest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,10 @@ import com.zgf.study.R;
 
 public class OneActivity extends AppCompatActivity {
     private static final String TAG = "zgf";
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, OneActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,7 @@ public class OneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TwoActivity.start(OneActivity.this);
+//                OneActivity.start(OneActivity.this);
             }
         });
 
@@ -67,6 +74,12 @@ public class OneActivity extends AppCompatActivity {
         super.onDestroy();
 
         log("onDestroy");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        log("onNewIntent");
     }
 
     private void log(String method) {

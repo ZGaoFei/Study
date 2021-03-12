@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.IntentService;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.SparseArray;
+import android.view.MotionEvent;
+import android.widget.ListView;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
@@ -94,5 +99,14 @@ public class MainActivity extends AppCompatActivity {
         LinkedHashMap linkedHashMap;
         ConcurrentHashMap concurrentHashMap;
 
+        Activity activity;
+        IntentService service;
+
+        ListView listView;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 }
