@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zgf.study">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -62,7 +63,33 @@
         </activity>
         <activity
             android:name=".ui.activitylifetest.TwoActivity"
-            android:launchMode="standard"/>
+            android:launchMode="standard" />
+        <activity
+            android:name=".ui.ScreenChangeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor">
+            <intent-filter>
+                <data
+                    android:host="screenchange"
+                    android:scheme="zgf" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.GlideTestActivity">
+            <intent-filter>
+                <data
+                    android:host="glidetest"
+                    android:scheme="zgf" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
