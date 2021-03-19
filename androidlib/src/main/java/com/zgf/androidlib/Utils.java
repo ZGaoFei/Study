@@ -22,4 +22,13 @@ public class Utils {
         context.startActivity(intent);
     }
 
+    public static int px2dip(Context cc, float pxValue) {
+        final float scale = cc.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static int dip2px(Context cc, float dipValue) {
+        final float scale = cc.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
 }

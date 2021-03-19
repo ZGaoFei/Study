@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DownloadProgressView">
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="textProgressColor" format="reference|color"/>
+        <attr name="backgroundColor"/>
+        <attr name="backgroundProgressColor" format="color"/>
+    </declare-styleable>
+</resources>
