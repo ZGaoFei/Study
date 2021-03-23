@@ -2,6 +2,11 @@ package com.zgf.study.net;
 
 import com.zgf.study.model.HomeModel;
 
+import java.io.IOException;
+
+import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,5 +36,23 @@ public class TestRequest {
 
                     }
                 });
+    }
+
+    public void requestOkHttp() {
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(null).addNetworkInterceptor(null).build();
+        Request build = new Request.Builder().url("").build();
+        okhttp3.Call call = client.newCall(build);
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+
+            }
+        });
+
     }
 }

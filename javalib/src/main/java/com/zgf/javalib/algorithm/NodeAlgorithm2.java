@@ -10,6 +10,57 @@ class NodeAlgorithm2 {
 
         Node<Integer> node1 = deleteNodeNData2(node, 4);
         printNode(node1);
+
+        System.out.println("========================");
+        Node<Integer> node2 = createNode(7);
+        printNode(node2);
+        int data = 6;
+        System.out.println("======" + data);
+        Node<Integer> deleteNodeWithData = deleteNodeWithData(node2, data);
+        printNode(deleteNodeWithData);
+
+        Node<Integer> node4 = createNode(7);
+        deleteNodeWithData2(node4, data);
+        printNode(node4);
+        System.out.println("========================");
+
+        Node<Integer> node5 = createNode(0, 1, 1, 2, 2, 3, 3, 3, 4);
+        printNode(node5);
+        deleteNodeRepeatData(node5);
+        printNode(node5);
+        System.out.println("========================");
+
+        Node<Integer> node6 = createNode(5);
+        printNode(node6);
+        int num = 16;
+        System.out.println("====" + num);
+        Node<Integer> spinNodeLeft = spinNodeLeft(node6, num);
+        printNode(spinNodeLeft);
+        System.out.println("===========left=============");
+
+        Node<Integer> node7 = createNode(5);
+        printNode(node7);
+        int numRight = 4;
+        System.out.println("====" + numRight);
+        Node<Integer> spinNodeRight = spinNodeRight(node7, numRight);
+        printNode(spinNodeRight);
+        System.out.println("============right============");
+    }
+
+    private static Node<Integer> createNode(int... datas) {
+        Node<Integer> head = null;
+        Node<Integer> tail = null;
+        for (int i = 0; i < datas.length; i++) {
+            int data = datas[i];
+            if (head == null) {
+                head = new Node<>(data);
+                tail = head;
+            } else {
+                tail.next = new Node<>(data);
+                tail = tail.next;
+            }
+        }
+        return head;
     }
 
     private static Node<Integer> createNode(int n) {
@@ -39,7 +90,7 @@ class NodeAlgorithm2 {
 
     /**
      * 删除链表中倒数的第n个数，然后返回链表的头
-     *
+     * <p>
      * node = 1 2 3 4 5 6
      * n = 3
      * node = 1 2 3 5 6
@@ -57,7 +108,7 @@ class NodeAlgorithm2 {
                     tail = tail.next;
                 }
             }
-            i ++;
+            i++;
         }
         Node<Integer> result;
         if (tail == null) {
@@ -93,4 +144,126 @@ class NodeAlgorithm2 {
 
         return ans;
     }
+
+    /**
+     * 删除链表里面的某个元素，并返回剩余的链表
+     * <p>
+     * [1, 2, 3, 4, 5]
+     * 4
+     * [1, 2, 3, 5]
+     */
+    private static Node<Integer> deleteNodeWithData(Node<Integer> node, int data) {
+        Node<Integer> dummy = new Node<>(0, node);
+        Node<Integer> head = dummy;
+        Node<Integer> tail = node;
+        while (tail != null) {
+            if (tail.val == data) {
+                head.next = tail.next;
+                tail.next = null;
+                break;
+            }
+            tail = tail.next;
+            head = head.next;
+        }
+        return dummy.next;
+    }
+
+    private static Node<Integer> deleteNodeWithData2(Node<Integer> node, int data) {
+        Node<Integer> head = node;
+        while (head != null) {
+            if (head.val == data) {
+                head.val = head.next.val;
+                head.next = head.next.next;
+                break;
+            }
+            head = head.next;
+        }
+        return node;
+    }
+
+    private static void deleteNode(Node node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    /**
+     * 删除链表中的重复元素
+     * <p>
+     * 1, 2, 2, 3, 3, 3, 4
+     * 1, 2, 3, 4
+     */
+    private static Node<Integer> deleteNodeRepeatData(Node<Integer> node) {
+        Node<Integer> head = node;
+        while (head != null && head.next != null) {
+            if (head.val == head.next.val) {
+                head.next = head.next.next;
+            } else {
+                head = head.next;
+            }
+        }
+        return node;
+    }
+
+    /**
+     * 向左旋转链表
+     * 1, 2, 3, 4, 5, 6, null
+     * 2
+     * 3, 4, 5, 6, 1, 2, null
+     */
+    private static Node<Integer> spinNodeLeft(Node<Integer> node, int n) {
+        Node<Integer> end = node;
+        Node<Integer> tail = node;
+        while (end.next != null) {
+            end = end.next;
+        }
+        while (n > 1) {
+            if (tail.next == null) {
+                tail = node;
+            } else {
+                tail = tail.next;
+            }
+            n--;
+        }
+
+        end.next = node;
+        Node<Integer> result = tail.next;
+        tail.next = null;
+
+        System.out.println("========tail======" + tail.val + "====" + end.val + "====" + node.val);
+        return result;
+    }
+
+    /**
+     * 1, 2, 3, 4, 5, 6, null
+     * 2
+     * 5, 6, 1, 2, 3, 4, null
+     * <p>
+     * n超过5还不支持
+     */
+    private static Node<Integer> spinNodeRight(Node<Integer> node, int n) {
+        Node<Integer> end = node;
+        Node<Integer> tail = node;
+        int length = 1;
+        while (end.next != null) {
+            end = end.next;
+            length++;
+        }
+        int a = length - n;
+        while (a > 1) {
+            if (tail.next == null) {
+                tail = node;
+            } else {
+                tail = tail.next;
+            }
+            a--;
+        }
+
+        end.next = node;
+        Node<Integer> result = tail.next;
+        tail.next = null;
+        System.out.println("========tail======" + tail.val + "====" + end.val + "====" + node.val + "====" + length);
+
+        return result;
+    }
+
 }
