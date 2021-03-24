@@ -40,11 +40,37 @@ class NodeAlgorithm2 {
 
         Node<Integer> node7 = createNode(5);
         printNode(node7);
-        int numRight = 4;
+        int numRight = 16;
         System.out.println("====" + numRight);
         Node<Integer> spinNodeRight = spinNodeRight(node7, numRight);
         printNode(spinNodeRight);
         System.out.println("============right============");
+
+        Node<Integer> node8 = createNode(5);
+        printNode(node8);
+        int numRight2 = 6;
+        System.out.println("====" + numRight2);
+        Node<Integer> spinNodeRight2 = spinNodeRight2(node8, numRight2);
+        printNode(spinNodeRight2);
+        System.out.println("============right2============");
+
+        Node<Integer> node9 = createNode(4);
+        printNode(node9);
+        Node<Integer> swapAdjacentNode = swapAdjacentNode(node9);
+        printNode(swapAdjacentNode);
+        System.out.println("============swapAdjacentNode============");
+
+        Node<Integer> node10 = createNode(5);
+        printNode(node10);
+        Node<Integer> swapNode = swapNode(node10);
+        printNode(swapNode);
+        System.out.println("============swapNode============");
+
+        Node<Integer> node11 = createNode(5);
+        printNode(node11);
+        Node<Integer> swapRangeNode = swapRangeNode(node11, 3, 4);
+        printNode(swapRangeNode);
+        System.out.println("============swapRangeNode============");
     }
 
     private static Node<Integer> createNode(int... datas) {
@@ -213,9 +239,12 @@ class NodeAlgorithm2 {
     private static Node<Integer> spinNodeLeft(Node<Integer> node, int n) {
         Node<Integer> end = node;
         Node<Integer> tail = node;
+        int length = 1;
         while (end.next != null) {
             end = end.next;
+            length++;
         }
+        n = n % length;
         while (n > 1) {
             if (tail.next == null) {
                 tail = node;
@@ -242,28 +271,116 @@ class NodeAlgorithm2 {
      */
     private static Node<Integer> spinNodeRight(Node<Integer> node, int n) {
         Node<Integer> end = node;
-        Node<Integer> tail = node;
+        Node<Integer> dummy = node;
         int length = 1;
         while (end.next != null) {
             end = end.next;
             length++;
         }
-        int a = length - n;
-        while (a > 1) {
-            if (tail.next == null) {
-                tail = node;
+        n = n % length;
+        n = length - n;
+        while (n > 1) {
+            if (dummy.next == null) {
+                dummy = node;
             } else {
-                tail = tail.next;
+                dummy = dummy.next;
             }
-            a--;
+            n--;
         }
 
         end.next = node;
-        Node<Integer> result = tail.next;
-        tail.next = null;
-        System.out.println("========tail======" + tail.val + "====" + end.val + "====" + node.val + "====" + length);
+        Node<Integer> result = dummy.next;
+        dummy.next = null;
 
         return result;
+    }
+
+    /**
+     * 1, 2, 3, 4, 5
+     * 1
+     * 5, 1, 2, 3, 4
+     */
+    private static Node<Integer> spinNodeRight2(Node<Integer> node, int n) {
+        Node<Integer> head = node;
+        Node<Integer> tail = node;
+        int length;
+        for (length = 1; tail.next != null; length++) {
+            tail = tail.next;
+        }
+
+        // 形成一个循环单向链表
+        tail.next = head;
+
+        n = n % length;
+        n = length - n;
+
+        // 找到新链表尾部的前一个位置的节点
+        while (n > 1) {
+            head = head.next;
+            n--;
+        }
+
+        Node<Integer> newHead = head.next;
+        head.next = null;
+
+        return newHead;
+    }
+
+    /**
+     * 交换链表中相邻的两个节点
+     * 1, 2, 3, 4
+     * 2, 1, 4, 3
+     */
+    private static Node<Integer> swapAdjacentNode(Node<Integer> node) {
+        Node<Integer> head = new Node<>(0, node);
+        Node<Integer> newNode = head;
+        while (newNode.next != null && newNode.next.next != null) {
+            Node<Integer> first = newNode.next;
+            Node<Integer> second = first.next;
+
+            newNode.next = second;
+            first.next = second.next;
+            second.next = first;
+
+            newNode = first;
+        }
+
+        return head.next;
+    }
+
+    /**
+     * 反转链表
+     * 1, 2, 3, 4, 5
+     * 5, 4, 3, 2, 1
+     */
+    private static Node<Integer> swapNode(Node<Integer> node) {
+        Node<Integer> prev = null;
+        Node<Integer> current = node;
+        while (current != null) {
+            // 首先记录下一个的节点
+            Node<Integer> next = current.next;
+
+            // 将当前节点的下一个节点指向前一个节点
+            current.next = prev;
+            // 指针后移
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+
+    /**
+     * 反转链表中一定范围的节点
+     * 1, 2, 3, 4, 5
+     * 2, 3
+     * 1, 3, 2, 4, 5
+     */
+    private static Node<Integer> swapRangeNode(Node<Integer> node, int m, int n) {
+        System.out.println("=====" + m + "====" + n);
+        
+
+        return node;
     }
 
 }

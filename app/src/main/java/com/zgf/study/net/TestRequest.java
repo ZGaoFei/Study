@@ -4,7 +4,6 @@ import com.zgf.study.model.HomeModel;
 
 import java.io.IOException;
 
-import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;

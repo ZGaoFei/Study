@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
 
 import com.zgf.study.adapter.HomeAdapter;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("测试activity的生命周期调用", "zgf://oneactivity"));
         list.add(new HomeModel("测试屏幕旋转", "zgf://screenchange"));
         list.add(new HomeModel("Glide test", "zgf://glidetest"));
+        list.add(new HomeModel("ARouter test", "zgf://arouterone"));
     }
 
     private void initView() {

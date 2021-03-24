@@ -6,12 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 
 import com.zgf.study.R;
 
 public class OneActivity extends AppCompatActivity {
     private static final String TAG = "zgf";
+
+    private Button btPop;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, OneActivity.class));
@@ -30,7 +36,21 @@ public class OneActivity extends AppCompatActivity {
             }
         });
 
+        btPop = findViewById(R.id.bt_pop);
+        btPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pop();
+            }
+        });
+
         log("onCreate");
+    }
+
+    private void pop() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_pop, null);
+        PopupWindow window = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        window.showAsDropDown(btPop);
     }
 
     @Override
