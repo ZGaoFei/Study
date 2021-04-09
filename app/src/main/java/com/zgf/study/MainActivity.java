@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.app.IntentService;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
@@ -29,7 +32,18 @@ import java.util.List;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+
+import dalvik.system.BaseDexClassLoader;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.functions.Action;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -112,6 +126,50 @@ public class MainActivity extends AppCompatActivity {
         LiveData<Integer> liveData;
 
 //        new ViewModelProvider(this, ).get();
+
+        AsyncTask task;
+
+        HandlerThread h;
+        IntentService service1;
+    }
+
+    private void testRxjava() {
+        Observable.fromCallable(new Callable<Object>() {
+
+            @Override
+            public Object call() throws Exception {
+                return null;
+            }
+        });
+        
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+                emitter.onNext("Hello world!");
+            }
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Throwable {
+
+            }
+        });
+
+        Observer o;
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+                emitter.onNext("hello world!");
+                emitter.onComplete();
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) throws Throwable {
+                return Integer.parseInt(s);
+            }
+        });
+
+        BaseDexClassLoader loader;
     }
 
     @Override
