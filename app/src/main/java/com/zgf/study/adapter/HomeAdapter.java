@@ -21,6 +21,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     private Context context;
     private List<HomeModel> list;
 
+    private ClickListener clickListener;
+
     public HomeAdapter(Context context, List<HomeModel> list) {
         this.context = context;
         this.list = list;
@@ -44,6 +46,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
                 if (!TextUtils.isEmpty(scheme)) {
                     if (scheme.startsWith("http")) {
                         WebViewActivity.start(context, scheme);
+                    } if (scheme.startsWith("test")) {
+                        if (clickListener != null) {
+                            clickListener.onItemClick(holder.textView, scheme);
+                        }
                     } else {
                         Utils.skipPageWithScheme(context, homeModel.getScheme());
                     }
@@ -65,5 +71,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
 
             textView = itemView.findViewById(R.id.tv_title);
         }
+    }
+
+    public void setOnClickListener(ClickListener listener) {
+        clickListener = listener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(View view, String flag);
     }
 }

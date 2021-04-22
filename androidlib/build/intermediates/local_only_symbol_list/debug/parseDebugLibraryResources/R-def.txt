@@ -1,0 +1,6 @@
+R_DEF: Internal format may change without notice
+local
+attr? backgroundColor
+attr? backgroundProgressColor
+attr? textProgressColor
+styleable DownloadProgressView android:text android:textSize android:textColor textProgressColor backgroundColor backgroundProgressColor

@@ -72,7 +72,7 @@ class NodeAlgorithm2 {
         printNode(node11);
         Node<Integer> swapRangeNode = swapRangeNode(node11, 2, 4);
         printNode(swapRangeNode);
-        System.out.println("============swapRangeNode============");
+        System.out.println("============swapRangeNode=====1=======");
 
         Node<Integer> node12 = createNode(1, 2, 3, 4, 5, 6);
         Node<Integer> node13 = createNode(7, 6, 8, 0);
@@ -454,9 +454,15 @@ class NodeAlgorithm2 {
         // 找到第一个要反转的节点
         Node<Integer> first = left.next;
 
+//        for (int i = 0; i < n - m; i++) {
+//            Node<Integer> next = first.next;
+//            first.next = first.next.next;
+//            next.next = left.next;
+//            left.next = next;
+//        }
         for (int i = 0; i < n - m; i++) {
             Node<Integer> next = first.next;
-            first.next = first.next.next;
+            first.next = next.next;
             next.next = left.next;
             left.next = next;
         }

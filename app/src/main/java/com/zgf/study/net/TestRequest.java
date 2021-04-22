@@ -1,6 +1,11 @@
 package com.zgf.study.net;
 
+import android.util.Log;
+
 import com.zgf.study.model.HomeModel;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 
@@ -53,5 +58,10 @@ public class TestRequest {
             }
         });
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void test(HomeModel model) {
+        Log.e("zgf", "===222===" + model.getTitle());
     }
 }

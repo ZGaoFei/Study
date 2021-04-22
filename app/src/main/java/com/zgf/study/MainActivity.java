@@ -13,14 +13,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.HandlerThread;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,10 +60,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EventBus.getDefault().register(this);
+
         addHomeItems();
         initView();
 
         test();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void addHomeItems() {
@@ -70,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("测试屏幕旋转", "zgf://screenchange"));
         list.add(new HomeModel("Glide test", "zgf://glidetest"));
         list.add(new HomeModel("ARouter test", "zgf://arouterone"));
+        list.add(new HomeModel("EventBus test", "test/eventbus"));
     }
 
     private void initView() {
@@ -77,6 +92,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         HomeAdapter adapter = new HomeAdapter(this, list);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnClickListener(new HomeAdapter.ClickListener() {
+            @Override
+            public void onItemClick(View view, String flag) {
+                if (flag.equals("test/eventbus")) {
+                    HomeModel homeModel = new HomeModel();
+                    homeModel.setScheme("https");
+                    homeModel.setTitle("hello world!");
+                    EventBus.getDefault().post(homeModel);
+                }
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void test(HomeModel model) {
+        Log.e("zgf", "===111===" + model.getTitle());
     }
 
     private void test() {
@@ -131,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         HandlerThread h;
         IntentService service1;
+        LinearLayout linearLayout;
     }
 
     private void testRxjava() {
