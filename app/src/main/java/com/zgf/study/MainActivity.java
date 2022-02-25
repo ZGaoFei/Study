@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -20,6 +24,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
+import android.widget.Toast;
 
 import com.zgf.study.adapter.HomeAdapter;
 import com.zgf.study.model.HomeModel;
@@ -29,6 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -85,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("Glide test", "zgf://glidetest"));
         list.add(new HomeModel("ARouter test", "zgf://arouterone"));
         list.add(new HomeModel("EventBus test", "test/eventbus"));
+        list.add(new HomeModel("RecyclerView click test", "zgf://recyclerviewtest"));
     }
 
     private void initView() {
@@ -149,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayMap arrayMap;
         SparseArray sparseArray;
 
-        LinkedHashMap linkedHashMap;
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
         ConcurrentHashMap concurrentHashMap;
+        Collections.synchronizedMap(linkedHashMap);
 
         Activity activity;
         IntentService service;
@@ -164,6 +173,26 @@ public class MainActivity extends AppCompatActivity {
         HandlerThread h;
         IntentService service1;
         LinearLayout linearLayout;
+
+        RecyclerView recyclerView;
+
+        Scroller scroller;
+        View view;
+
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        ContextWrapper contextWrapper;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("", MODE_PRIVATE);
+
+        ThreadLocal threadLocal;
+
+        Handler handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@androidx.annotation.NonNull Message msg) {
+
+                return false;
+            }
+        });
     }
 
     private void testRxjava() {
