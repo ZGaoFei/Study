@@ -118,7 +118,31 @@
                 <data
                     android:host="recyclerviewtest"
                     android:scheme="zgf" />
+
                 <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.ListViewActivity">
+            <intent-filter>
+                <data
+                    android:host="listviewtest"
+                    android:scheme="zgf" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.mvvm.DataActivity">
+            <intent-filter>
+                <data
+                    android:host="livedatatest"
+                    android:scheme="zgf" />
+
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

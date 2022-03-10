@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -49,18 +51,25 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import dalvik.system.BaseDexClassLoader;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableEmitter;
 import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity {
     private List<HomeModel> list;
+
+    private MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +78,57 @@ public class MainActivity extends AppCompatActivity {
 
         EventBus.getDefault().register(this);
 
+        presenter = new MainPresenter();
+
         addHomeItems();
         initView();
 
         test();
+
+        Log.e("zgf", "====onCreate=======");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("zgf", "=====onStart======");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("zgf", "=====onResume======");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("zgf", "=====onPause======");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e("zgf", "=====onRestart======");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("zgf", "=====onStop======");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        Log.e("zgf", "====onDestroy=======");
     }
 
     private void addHomeItems() {
         list = new ArrayList<>();
         list.add(new HomeModel("查看Android-Review文档", "https://github.com/ZGaoFei/Android-Review"));
+        list.add(new HomeModel("YCBlogs", "https://github.com/yangchong211/YCBlogs"));
         list.add(new HomeModel("查看面试宝典内容", "https://github.com/JackChan1999/Android-Interview"));
         list.add(new HomeModel("自定义View之下载进度条", "zgf://downloadprogress"));
         list.add(new HomeModel("监听屏幕高度变化", "zgf://screenchangelistener"));
@@ -93,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("ARouter test", "zgf://arouterone"));
         list.add(new HomeModel("EventBus test", "test/eventbus"));
         list.add(new HomeModel("RecyclerView click test", "zgf://recyclerviewtest"));
+        list.add(new HomeModel("ListView test", "zgf://listviewtest"));
+        list.add(new HomeModel("LiveData ViewModel test", "zgf://livedatatest"));
     }
 
     private void initView() {
@@ -193,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        getLifecycle().addObserver(presenter);
     }
 
     private void testRxjava() {
@@ -203,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
-        
+
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
@@ -231,7 +280,108 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BaseDexClassLoader loader;
+        /**
+         * 基本流程
+         * 1、创建被观察者Observable
+         * 2、产生事件
+         * 3、创建观察者Observer
+         * 4、绑定被观察者和观察者subscribe
+         * 5、处理事件
+         */
+        Observable.create(new ObservableOnSubscribe<String>() { // 1
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+                emitter.onNext("hello world!"); // 2
+                emitter.onComplete();
+            }
+        }).subscribe(new Observer<String>() { // 3/4
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                // 5
+                Log.e("zgf", "=======onNext=========" + s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+
+            }
+        }).map(new Function<String, Integer>() {
+            @Override
+            public Integer apply(String s) throws Throwable {
+                return null;
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull Integer integer) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+
+            }
+        }).flatMap(new Function<String, ObservableSource<Integer>>() {
+            @Override
+            public ObservableSource<Integer> apply(String s) throws Throwable {
+                return null;
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Integer integer) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

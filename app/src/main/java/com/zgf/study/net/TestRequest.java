@@ -60,6 +60,24 @@ public class TestRequest {
 
     }
 
+    public void testOkHttp() {
+        new OkHttpClient().newBuilder().build();
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Request build = new Request.Builder().url("").build();
+        client.newCall(build).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                // TODO: 2022/3/8 child thread run, should change to main thread to update ui
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                // TODO: 2022/3/8 child thread run, should change to main thread to update ui
+            }
+        });
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void test(HomeModel model) {
         Log.e("zgf", "===222===" + model.getTitle());
