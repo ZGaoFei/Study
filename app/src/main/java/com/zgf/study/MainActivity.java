@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("ARouter test", "zgf://arouterone"));
         list.add(new HomeModel("EventBus test", "test/eventbus"));
         list.add(new HomeModel("RecyclerView click test", "zgf://recyclerviewtest"));
+        list.add(new HomeModel("Multi type RecyclerView test", "zgf://multitypelisttest"));
         list.add(new HomeModel("ListView test", "zgf://listviewtest"));
         list.add(new HomeModel("LiveData ViewModel test", "zgf://livedatatest"));
     }
