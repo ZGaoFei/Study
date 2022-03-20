@@ -5,6 +5,9 @@
 | 2 | Study317.addTwoNums() |
 | 3 | Study318.lengthOfLongestSubstring() |
 | 4 | Study318.findMedianSortedArrays() |
+| 5 | Study320.longestPalindrome1() |
+| 6 | Study320.convert() |
+| 7 | Study320.reverse() |
 | 606 | Study318.tree2str() |
 | 遍历二叉树左序 | Study318.printTree() |
 | 遍历二叉树右序 | Study318.printTreeRight() |

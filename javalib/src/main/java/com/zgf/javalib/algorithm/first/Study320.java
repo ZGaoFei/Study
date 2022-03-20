@@ -15,9 +15,19 @@ class Study320 {
 //        longestPalindrome1("bb");
 //        longestPalindrome1("bcbc");
 
-        convert("abcdefghijk", 3);
-        convert("abcdefghijk", 4);
-        convert("abcdefghijk", 5);
+//        convert("abcdefghijk", 3);
+//        convert("abcdefghijk", 4);
+//        convert("abcdefghijk", 5);
+
+        reverse(1000010);
+        reverse(-1000010);
+        reverse(1000012);
+        reverse(1000000);
+
+        reverse0(1000010);
+        reverse0(-1000010);
+        reverse0(1000012);
+        reverse0(1000000);
     }
 
     /**
@@ -128,8 +138,63 @@ class Study320 {
     /**
      * 7 整数反转
      *
+     * 字符串的方式
      */
     private static void reverse(int x) {
+        boolean b = x > 0;
+        // 转成字符串
+        String str = String.valueOf(x);
+        // System.out.println("0: str: " + str);
 
+        // 去掉符号
+        if (!b) {
+            str = str.substring(1);
+            // System.out.println("1: str: " + str);
+        }
+
+        // 反转字符串
+        StringBuilder builder = new StringBuilder();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            builder.append(str.charAt(i));
+        }
+        String result = builder.toString();
+        // System.out.println("2: result: " + result);
+
+        // 去掉开头的0
+        int pos = -1;
+        for (int i = 0; i < result.length(); i++) {
+            if (result.charAt(i) != '0') {
+                pos = i;
+                break;
+            }
+        }
+        if (pos > 0) {
+            result = result.substring(pos);
+        }
+
+        // 添加符号
+        if (!b) {
+            result = "-" + result;
+        }
+        System.out.println("4: result: " + result);
+    }
+
+    /**
+     * 7 整数反转
+     *
+     * 数学的方式
+     */
+    private static void reverse0(int x) {
+        int rev = 0;
+        while (x != 0) {
+            if (rev > Integer.MAX_VALUE / 10 || rev < Integer.MIN_VALUE / 10) {
+                return;
+            }
+            int digit = x % 10;
+            x = x / 10;
+            rev = rev * 10 + digit;
+        }
+
+        System.out.println(rev);
     }
 }
