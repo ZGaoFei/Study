@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -86,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
         test();
 
         Log.e("zgf", "====onCreate=======");
+
+        testFile();
+    }
+
+    private void testFile() {
+        String path = "/sdcard/xllive/xllive_plugin_app_project-release.apk";
+        File file = new File(path);
+        Log.e("zgf", "=====file====" + file.exists());
     }
 
     @Override

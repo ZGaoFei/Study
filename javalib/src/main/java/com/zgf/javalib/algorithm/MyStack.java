@@ -12,7 +12,7 @@ public class MyStack<T> {
     public T pop() {
         int size = list.size();
         T t = list.get(size - 1);
-        list.remove(size -1);
+        T remove = list.remove(size - 1);
         return t;
     }
 
