@@ -73,9 +73,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.Holde
         Log.e("zgf", "=====onBindViewHolder==111==");
         String s = list.get(position);
         holder.textView.setText(s);
-
-        // TODO 1、设置tag，将当前item的position传进去
-        holder.textView.setTag(position);
     }
 
     @Override
@@ -90,16 +87,15 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.Holde
             super(itemView);
 
             textView = itemView.findViewById(R.id.tv_content);
-            // TODO 2、设置点击事件
+            // TODO 1、设置点击事件
             // TODO: 这样可以每个item调用一次setOnClickListener()，不会重复调用
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        // TODO 3、获取position
-                        int position = (int) v.getTag();
-                        // TODO 4、点击回调
-                        listener.onItemClickListener(v, position);
+                        // TODO 2、点击回调
+                        // TODO:  getAdapterPosition()来获取当前item position
+                        listener.onItemClickListener(v, getAdapterPosition());
                     }
                 }
             });
