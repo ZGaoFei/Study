@@ -1,7 +1,11 @@
 package com.zgf.javalib.algorithm.first;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 class Study320 {
     public static void main(String[] args) {
@@ -19,15 +23,31 @@ class Study320 {
 //        convert("abcdefghijk", 4);
 //        convert("abcdefghijk", 5);
 
-        reverse(1000010);
-        reverse(-1000010);
-        reverse(1000012);
-        reverse(1000000);
+//        reverse(1000010);
+//        reverse(-1000010);
+//        reverse(1000012);
+//        reverse(1000000);
+//
+//        reverse0(1000010);
+//        reverse0(-1000010);
+//        reverse0(1000012);
+//        reverse0(1000000);
 
-        reverse0(1000010);
-        reverse0(-1000010);
-        reverse0(1000012);
-        reverse0(1000000);
+        TreeNode treeNode = new TreeNode(1);
+        treeNode.left = new TreeNode(2);
+        treeNode.right = new TreeNode(3);
+        treeNode.left.left = new TreeNode(4);
+        treeNode.left.right = new TreeNode(5);
+        treeNode.left.right.right = new TreeNode(6);
+        treeNode.left.right.right.left = new TreeNode(7);
+        treeNode.left.right.right.right = new TreeNode(8);
+        treeNode.right.left = new TreeNode(9);
+        treeNode.right.right = new TreeNode(0);
+        boolean target = findTarget(treeNode, 19);
+        System.out.println(target);
+
+        boolean target1 = findTarget1(treeNode, 10);
+        System.out.println(target1);
     }
 
     /**
@@ -196,5 +216,46 @@ class Study320 {
         }
 
         System.out.println(rev);
+    }
+
+    /**
+     * 653 两数之和IV - 输入BST
+     *
+     * 深度优先算法 + 哈希表
+     */
+    private static Set<Integer> set = new HashSet();
+    private static boolean findTarget(TreeNode root, int k) {
+        if (root == null) {
+            return false;
+        }
+        if (set.contains(k - root.val)) {
+            return true;
+        }
+        set.add(root.val);
+        return findTarget(root.left, k) || findTarget(root.right, k);
+    }
+
+    /**
+     * 广度优先搜索 + 哈希表
+     *
+     */
+    private static boolean findTarget1(TreeNode root, int k) {
+        Set<Integer> set = new HashSet<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode poll = queue.poll();
+            if (set.contains(k - poll.val)) {
+                return true;
+            }
+            set.add(poll.val);
+            if (poll.left != null) {
+                queue.offer(poll.left);
+            }
+            if (poll.right != null) {
+                queue.offer(poll.right);
+            }
+        }
+        return false;
     }
 }
