@@ -5,24 +5,31 @@ import java.util.Map;
 
 public class Study323 {
     public static void main(String[] args) {
-        intToRoman(1);
-        intToRoman(3);
-        intToRoman(4);
-        intToRoman(9);
-        intToRoman(58);
-        intToRoman(1994);
+//        intToRoman(1);
+//        intToRoman(3);
+//        intToRoman(4);
+//        intToRoman(9);
+//        intToRoman(58);
+//        intToRoman(1994);
+//
+//        romanToInt("I");
+//        romanToInt("III");
+//        romanToInt("IV");
+//        romanToInt("IX");
+//        romanToInt("LVIII");
+//        romanToInt("MCMXCIV");
 
-        romanToInt("I");
-        romanToInt("III");
-        romanToInt("IV");
-        romanToInt("IX");
-        romanToInt("LVIII");
-        romanToInt("MCMXCIV");
+        String[] strings = {"flower", "flow", "flight"};
+        String s = longestCommonPrefix(strings);
+        System.out.println(s);
+        String[] strings1 = {"dog", "racecar", "car"};
+        String s1 = longestCommonPrefix(strings1);
+        System.out.println(s1);
     }
 
     /**
      * 12 整数转罗马数字
-     *
+     * <p>
      * I    1
      * V    5
      * X    10
@@ -30,7 +37,7 @@ public class Study323 {
      * C    100
      * D    500
      * M    1000
-     *
+     * <p>
      * 特殊情况
      * 4   IV
      * 9   IX
@@ -64,7 +71,7 @@ public class Study323 {
 
     /**
      * 13 罗马数字转整数
-     *
+     * <p>
      * MCMXCIV
      * M CM XC IV
      * 1000 + 900 + 90 + 4
@@ -89,5 +96,36 @@ public class Study323 {
             }
         }
         System.out.println(result);
+    }
+
+    /**
+     * 14 最长公共前缀
+     *
+     * 根据第一个字符串的每个字符去匹配其他的字符串的每个字符
+     */
+    private static String longestCommonPrefix(String[] strings) {
+        StringBuilder builder = new StringBuilder();
+        String string = strings[0];
+        // 从一个字符串的第一个字符开始
+        for (int i = 0; i < string.length(); i++) {
+            // 标志位，只有一圈比较完之后才能确定是否是公共前缀
+            boolean isOne = false;
+            for (int j = 1; j < strings.length; j++) {
+                // 边界检查，如果有字符串的长度小于i，表示该字符串较短，直接退出循环
+                if (strings[j].length() <= i) {
+                    return builder.toString();
+                }
+                if (string.charAt(i) != strings[j].charAt(i)) {
+                    isOne = false;
+                    break;
+                }
+                isOne = true;
+            }
+            System.out.println(isOne);
+            if (isOne) {
+                builder.append(string.charAt(i));
+            }
+        }
+        return builder.toString();
     }
 }
