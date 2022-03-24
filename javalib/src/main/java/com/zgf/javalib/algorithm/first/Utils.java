@@ -17,4 +17,10 @@ public class Utils {
             System.out.print(num[i] + " ");
         }
     }
+
+    public static void printArray(String[] num) {
+        for (int i = 0; i < num.length; i++) {
+            System.out.print(num[i] + " ");
+        }
+    }
 }
