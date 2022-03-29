@@ -16,6 +16,10 @@
 | 15 | Study323.threeNumSum() |
 | 16 | Study323.threeNumClosest() |
 | 17 | Study323.backTrack() |
+| 18 | Study329.fourNumSum() |
+| 19 | Study329.removeNthFromEnd() |
+| 20 | Study329.isValid() |
+| 21 | Study329.merge() |
 | 606 | Study318.tree2str() |
 | 653 | Study320.findTarget() |
 | 遍历二叉树左序 | Study318.printTree() |
