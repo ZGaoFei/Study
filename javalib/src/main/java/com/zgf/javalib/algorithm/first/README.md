@@ -20,6 +20,11 @@
 | 19 | Study329.removeNthFromEnd() |
 | 20 | Study329.isValid() |
 | 21 | Study329.merge() |
+| 22 | Study330.generateParenthesis() |
+| 24 | Study330.swapPairs() |
+| 26 | Study330.remove() |
+| 27 | Study330.removeTarget() |
+| 28 | Study330.indexOf() |
 | 606 | Study318.tree2str() |
 | 653 | Study320.findTarget() |
 | 遍历二叉树左序 | Study318.printTree() |
