@@ -1,22 +1,30 @@
 package com.zgf.study;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleService;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
@@ -233,6 +241,8 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView;
 
+        ViewPager viewPager;
+
         Scroller scroller;
         View view;
 
@@ -242,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("", MODE_PRIVATE);
 
         ThreadLocal threadLocal;
+        Thread thread;
+
+        LocalBroadcastManager manager;
 
         Handler handler = new Handler(new Handler.Callback() {
             @Override
@@ -252,6 +265,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getLifecycle().addObserver(presenter);
+
+        LifecycleService lifecycleService;
+
+        ProcessLifecycleOwner owner;
+
+        Bitmap bitmap;
+
+        Instrumentation instrumentation;
     }
 
     private void testRxjava() {
@@ -397,5 +418,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void testHandlerThread() {
+        // 主线程的handler
+        final Handler uiHandler = new Handler(getMainLooper());
+
+        HandlerThread handlerThread = new HandlerThread("handler_thread");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper()) {
+            @Override
+            public void handleMessage(@androidx.annotation.NonNull Message msg) {
+                super.handleMessage(msg);
+                // TODO: 2022/5/12 处理异步任务
+
+                // 通知UI线程
+                uiHandler.sendEmptyMessage(0);
+            }
+        };
+
+        Message message = Message.obtain();
+        message.what = 0;
+        handler.sendMessage(message);
+    }
+
+    private void testFragment() {
+        getFragmentManager()
+                .beginTransaction()
+                .add(0, null)
+                .commitAllowingStateLoss();
     }
 }
