@@ -25,6 +25,11 @@
 | 26 | Study330.remove() |
 | 27 | Study330.removeTarget() |
 | 28 | Study330.indexOf() |
+| 31 | Study523.nextPermutation() |
+| 32 | Study523.longestValidParentheses() |
+| 33 | Study523.search() |
+| 34 | Study523.searchRange() |
+| 38 | Study523.countAndSay() |
 | 606 | Study318.tree2str() |
 | 653 | Study320.findTarget() |
 | 遍历二叉树左序 | Study318.printTree() |
