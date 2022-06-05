@@ -20,6 +20,7 @@ import android.os.Message;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -252,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getLifecycle().addObserver(presenter);
+        Choreographer.getInstance();
+
     }
 
     private void testRxjava() {
