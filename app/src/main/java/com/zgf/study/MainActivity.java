@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -270,6 +271,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getLifecycle().addObserver(presenter);
+<<<<<<< HEAD
+        Choreographer.getInstance();
+
+=======
 
         LifecycleService lifecycleService;
 
@@ -278,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap;
 
         Instrumentation instrumentation;
+>>>>>>> f4403941d6943cf6b3fd0b8e80b8e6af76c22fb9
     }
 
     private void testRxjava() {
