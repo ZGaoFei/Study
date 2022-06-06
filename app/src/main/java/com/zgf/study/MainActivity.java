@@ -62,6 +62,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import dalvik.system.BaseDexClassLoader;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.MaybeEmitter;
+import io.reactivex.rxjava3.core.MaybeObserver;
+import io.reactivex.rxjava3.core.MaybeOnSubscribe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableEmitter;
 import io.reactivex.rxjava3.core.ObservableOnSubscribe;
@@ -72,6 +76,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.internal.operators.maybe.MaybeToObservable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -328,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         }).subscribe(new Observer<String>() { // 3/4
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-
+                d.dispose();
             }
 
             @Override
@@ -392,7 +397,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Integer>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Throwable {
+
+                    }
+                }).subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
@@ -413,6 +423,34 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        Maybe.create(new MaybeOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull MaybeEmitter<String> emitter) throws Throwable {
+
+            }
+        }).subscribe(new MaybeObserver<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull String s) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
     }
 
     @Override

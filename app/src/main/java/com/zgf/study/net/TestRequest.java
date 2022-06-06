@@ -24,6 +24,7 @@ public class TestRequest {
                 //设置数据解析器
                 .addConverterFactory(GsonConverterFactory.create())
                 //设置网络请求的Url地址
+                //.addCallAdapterFactory()
                 .baseUrl("http://apis.baidu.com/txapi/")
                 .build();
         // 创建网络请求接口的实例
