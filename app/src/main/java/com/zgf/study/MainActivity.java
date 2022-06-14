@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.IntentService;
@@ -281,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap;
 
         Instrumentation instrumentation;
+
+        ValueAnimator.ofInt(10).start();
     }
 
     private void testRxjava() {
@@ -481,6 +484,8 @@ public class MainActivity extends AppCompatActivity {
         Message message = Message.obtain();
         message.what = 0;
         handler.sendMessage(message);
+
+        // handlerThread.quit();
     }
 
     private void testFragment() {
