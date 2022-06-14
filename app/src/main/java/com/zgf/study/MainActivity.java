@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -166,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         HomeAdapter adapter = new HomeAdapter(this, list);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled();
 
         adapter.setOnClickListener(new HomeAdapter.ClickListener() {
             @Override
@@ -266,10 +268,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getLifecycle().addObserver(presenter);
-<<<<<<< HEAD
-        Choreographer.getInstance();
 
-=======
+        Choreographer.getInstance();
 
         LifecycleService lifecycleService;
 
@@ -278,7 +278,8 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap;
 
         Instrumentation instrumentation;
->>>>>>> f4403941d6943cf6b3fd0b8e80b8e6af76c22fb9
+
+        BlockingQueue blockingQueue;
     }
 
     private void testRxjava() {
