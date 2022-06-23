@@ -59,6 +59,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -292,6 +293,10 @@ public class MainActivity extends AppCompatActivity {
         ValueAnimator animator = ValueAnimator.ofInt(10);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.start();
+
+        BlockingQueue blockingQueue;
+
+        ValueAnimator.ofInt(10).start();
     }
 
     private void testRxjava() {
