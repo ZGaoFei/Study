@@ -33,6 +33,7 @@ import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -75,11 +76,16 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleEmitter;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.core.SingleOnSubscribe;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.internal.operators.maybe.MaybeToObservable;
+import io.reactivex.rxjava3.internal.schedulers.NewThreadScheduler;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -284,6 +290,10 @@ public class MainActivity extends AppCompatActivity {
 
         Instrumentation instrumentation;
 
+        ValueAnimator animator = ValueAnimator.ofInt(10);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.start();
+
         BlockingQueue blockingQueue;
 
         ValueAnimator.ofInt(10).start();
@@ -304,6 +314,20 @@ public class MainActivity extends AppCompatActivity {
                 emitter.onNext("Hello world!");
             }
         }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Throwable {
+
+            }
+        });
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+
+            }
+        }).subscribeOn(new NewThreadScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
             @Override
             public void accept(String s) throws Throwable {
 
@@ -456,6 +480,27 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
+
+            }
+        });
+
+        Single.create(new SingleOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull SingleEmitter<String> emitter) throws Throwable {
+            }
+        }).subscribe(new SingleObserver<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(@NonNull String s) {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
 
             }
         });
