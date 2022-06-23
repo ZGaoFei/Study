@@ -1,5 +1,9 @@
 package com.zgf.javalib.offer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Study614 {
 
     public static void main(String[] args) {
@@ -24,6 +28,12 @@ public class Study614 {
         System.out.println("==i==" + i);
         int i1 = minNumberInRotateArray1(minNums);
         System.out.println("==i1==" + i1);
+
+        String string = "abc";
+        List<String> permutation = permutation(string);
+        for (int j = 0; j < permutation.size(); j++) {
+            System.out.println(permutation.get(j));
+        }
     }
 
     /**
@@ -144,12 +154,42 @@ public class Study614 {
      *
      * 回溯算法
      */
-    private static void permutation(String string) {
+    private static List<String> permutation(String string) {
+        List<String> res = new ArrayList<>();
         if (string == null || string.length() == 0) {
-            return;
+            return res;
         }
         char[] chars = string.toCharArray();
-        int length = chars.length;
+        Arrays.sort(chars);
 
+        boolean[] vis = new boolean[chars.length];
+        Arrays.fill(vis, false);
+
+        StringBuilder builder = new StringBuilder();
+        recursion(res, chars, vis, builder);
+
+        return res;
+    }
+
+    private static void recursion(List<String> res, char[] chars, boolean[] vis, StringBuilder builder) {
+        if (builder.length() == chars.length) {
+            res.add(new String(builder));
+            return;
+        }
+        for (int i = 0; i < chars.length; i++) {
+            if (vis[i]) {
+                continue;
+            }
+            if (i > 0 && chars[i - 1] == chars[i] && !vis[i - 1]) {
+                continue;
+            }
+            vis[i] = true;
+            builder.append(chars[i]);
+            recursion(res, chars, vis, builder);
+
+            // 回溯
+            vis[i] = false;
+            builder.deleteCharAt(builder.length() - 1);
+        }
     }
 }
