@@ -1,5 +1,8 @@
 package com.zgf.javalib.offer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 动态规划
  */
@@ -31,6 +34,28 @@ class DynamicProgramming {
 
         int i6 = rectCover(5);
         System.out.println(i6);
+
+        int[] profitNums = new int[]{3, 5, 7, 1, 4, 6};
+        int profit = maxProfit(profitNums);
+        System.out.println("profit: " + profit);
+
+        int[][] gridNums = new int[][]{
+                {1, 3, 1},
+                {2, 5, 1},
+                {4, 2, 1},
+                {5, 6, 7}
+        };
+        int maxValue = maxValue(gridNums);
+        System.out.println("max value: " + maxValue);
+
+        int longest = longestSubString("helloworld");
+        int longest1 = longestSubString("abcabcbb");
+        int longest2 = longestSubString("bbbbb");
+        int longest3 = longestSubString("pwwkew");
+        System.out.println("longest: " + longest);
+        System.out.println("longest1: " + longest1);
+        System.out.println("longest2: " + longest2);
+        System.out.println("longest3: " + longest3);
     }
 
     /**
@@ -119,7 +144,7 @@ class DynamicProgramming {
 
     /**
      * JZ69 跳台阶
-     *
+     * <p>
      * 一次跳一个台阶或者两个台阶
      * 符合斐波那契数列
      */
@@ -131,6 +156,7 @@ class DynamicProgramming {
     }
 
     static int[] f = new int[50];
+
     private static int jumpFloor1(int num) {
         if (num <= 1) {
             return 1;
@@ -167,7 +193,7 @@ class DynamicProgramming {
 
     /**
      * JZ71 跳台阶扩展问题
-     *
+     * <p>
      * 每次可以调1~n阶台阶
      */
     private static int jumpFloorExpand(int n) {
@@ -206,6 +232,78 @@ class DynamicProgramming {
             b = res;
         }
         return res;
+    }
+
+    /**
+     * JZ63 买卖股票的最好时机(一)
+     */
+    private static int maxProfit(int[] nums) {
+        int res = 0;
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        int min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            min = Math.min(min, nums[i]);
+            res = Math.max(res, nums[i] - min);
+            System.out.println("min: " + min + "==res: " + res);
+        }
+        return res;
+    }
+
+    /**
+     * JZ47 礼物的最大价值
+     */
+    private static int maxValue(int[][] nums) {
+        int m = nums.length; // 行
+        int n = nums[0].length; // 列
+        // 第一列
+        for (int i = 1; i < m; i++) {
+            nums[i][0] += nums[i - 1][0];
+        }
+        // 第一行
+        for (int i = 1; i < n; i++) {
+            nums[0][i] += nums[0][i - 1];
+        }
+        // 遍历其他各个位置
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                nums[i][j] += Math.max(nums[i - 1][j], nums[i][j - 1]);
+            }
+        }
+        return nums[m - 1][n - 1];
+    }
+
+    /**
+     * JZ48 最长不含重复字符的子字符串
+     */
+    private static int longestSubString(String string) {
+        if (string == null || string.length() == 0) {
+            return 0;
+        }
+        int max = 0;
+        // 双指针
+        int n = 1;
+        int flag = 1;
+        int m = string.length();
+        // 记录是否重复的集合
+        List<Character> list = new ArrayList<>();
+        list.add(string.charAt(0));
+        while (n < m) {
+            char c = string.charAt(n);
+            if (list.contains(c)) {
+                max = Math.max(max, list.size());
+                list.clear();
+                // 从头开始
+                flag++;
+                n = flag;
+            } else {
+                list.add(c);
+                n++;
+            }
+        }
+        max = Math.max(max, list.size());
+        return max;
     }
 
 }
