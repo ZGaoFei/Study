@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new HomeModel("Multi type RecyclerView test", "zgf://multitypelisttest"));
         list.add(new HomeModel("ListView test", "zgf://listviewtest"));
         list.add(new HomeModel("LiveData ViewModel test", "zgf://livedatatest"));
+        list.add(new HomeModel("Thread Test", "test/thread"));
     }
 
     private void initView() {
@@ -188,9 +189,40 @@ public class MainActivity extends AppCompatActivity {
                     homeModel.setScheme("https");
                     homeModel.setTitle("hello world!");
                     EventBus.getDefault().post(homeModel);
+                } else if (flag.equals("test/thread")) {
+                    n = 0;
+                    testThread();
                 }
             }
         });
+    }
+
+    int n = 0;
+    private void testThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n0: " + n);
+                n++;
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n1: " + n);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n4: " + n);
+                n+=2;
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n5: " + n);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n2: " + n);
+                n++;
+                Log.e("zgf", "t: " + Thread.currentThread() + "    n3: " + n);
+            }
+        }).start();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

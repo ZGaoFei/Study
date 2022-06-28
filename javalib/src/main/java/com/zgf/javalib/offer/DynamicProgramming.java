@@ -306,4 +306,11 @@ class DynamicProgramming {
         return max;
     }
 
+    /**
+     * JZ46 把数字翻译成字符串
+     */
+    private static void solve() {
+
+    }
+
 }
