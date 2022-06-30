@@ -15,12 +15,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class MultiTypeAdapter extends RecyclerView.Adapter<MultiTypeBaseHolder> {
+public class MultiTypeAdapter extends RecyclerView.Adapter<MultiTypeBaseHolder<MultiTypeBaseModel>> {
 
-    private Context context;
-    private List<? extends MultiTypeBaseModel> list;
+    private final Context context;
+    private final List<? extends MultiTypeBaseModel> list;
 
-    private MultiTypeListManager manager;
+    private final MultiTypeListManager manager;
+
+    private ItemClickListener clickListener;
 
     public MultiTypeAdapter(Context context, List<? extends MultiTypeBaseModel> list) {
         this.context = context;
@@ -31,32 +33,31 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<MultiTypeBaseHolder> 
 
     @NonNull
     @Override
-    public MultiTypeBaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MultiTypeBaseHolder<MultiTypeBaseModel> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         MultiTypeListModel model = manager.getModel(viewType);
         if (model == null || model.getResourceId() == 0 || model.getaClass() == null) {
             return null;
         }
         View view = LayoutInflater.from(context).inflate(model.getResourceId(), parent, false);
-        Class<? extends MultiTypeBaseHolder> aClass = model.getaClass();
-        MultiTypeBaseHolder holder = null;
+        MultiTypeBaseHolder<MultiTypeBaseModel> holder = null;
         try {
-            Constructor<? extends MultiTypeBaseHolder> constructor = aClass.getConstructor(View.class);
+            Constructor<? extends MultiTypeBaseHolder> constructor = model.getaClass().getConstructor(View.class);
             holder = constructor.newInstance(view);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MultiTypeBaseHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MultiTypeBaseHolder<MultiTypeBaseModel> holder, int position) {
         holder.bindViewHolder(list.get(position));
+
+        holder.setOnClick(clickListener);
+    }
+
+    public void setItemClickListener(ItemClickListener listener) {
+        this.clickListener = listener;
     }
 
     @Override

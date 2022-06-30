@@ -16,6 +16,15 @@ public class MultiTypeOneHolder extends MultiTypeBaseHolder<OneModel> {
         super(itemView);
 
         textView = itemView.findViewById(R.id.tv_content);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClickListener(v, getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override

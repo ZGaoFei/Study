@@ -18,6 +18,26 @@ public class MultiTypeTwoHolder extends MultiTypeBaseHolder<TwoModel> {
 
         tvTitle = itemView.findViewById(R.id.tv_title);
         tvContent = itemView.findViewById(R.id.tv_content);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClickListener(v, getAdapterPosition());
+                }
+            }
+        });
+
+        tvContent.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (listener != null) {
+                    listener.onLongClickListener(v, getAdapterPosition());
+                }
+
+                return false;
+            }
+        });
     }
 
     @Override

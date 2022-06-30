@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.zgf.study.R;
 import com.zgf.study.ui.multitype.model.MultiTypeBaseModel;
@@ -42,5 +44,20 @@ public class MultiTypeListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MultiTypeAdapter adapter = new MultiTypeAdapter(this, list);
         recyclerView.setAdapter(adapter);
+        adapter.setItemClickListener(new ItemClickListenerAdapter() {
+            @Override
+            public void onClickListener(View view, int position) {
+                super.onClickListener(view, position);
+
+                Log.e("zgf", "==onClickListener==" + position);
+            }
+
+            @Override
+            public void onLongClickListener(View view, int position) {
+                super.onLongClickListener(view, position);
+
+                Log.e("zgf", "======onLongClickListener=====" + position);
+            }
+        });
     }
 }
